@@ -12,55 +12,56 @@ import me.legofreak107.rollercoaster.objects.Cart;
 import me.legofreak107.rollercoaster.objects.Seat;
 import me.legofreak107.rollercoaster.objects.Train;
 
-public class TrainUnlockEvent extends Event{
+public class TrainUnlockEvent extends Event {
 
-    private static final HandlerList handlers = new HandlerList();
-    private String message;
-    private Train train;
+	private static final HandlerList handlers = new HandlerList();
+	private String message;
+	private Train train;
 
-    public TrainUnlockEvent(String example, Train t) {
-        message = example;
-        train = t;
-    }
-    
-    public Train getTrain(){
-    	return train;
-    }
+	public TrainUnlockEvent(String example, Train t) {
+		message = example;
+		train = t;
+	}
 
-    public String getMessage() {
-        return message;
-    }
-    
-    public List<Seat> getSeats(){
-    	List<Seat> s = new ArrayList<Seat>();
-    	for(Cart c : train.carts){
-    		for(Seat se : c.seats){
-    			s.add(se);
-    		}
-    	}
-    	return s;
-    }
-    
-    public List<Player> getPlayers(){
-    	List<Player> s = new ArrayList<Player>();
-    	for(Cart c : train.carts){
-    		for(Seat se : c.seats){
-    			for(Entity e : se.holder.getPassengers()){
-    				if(e instanceof Player){
-    					s.add((Player)e);
-    				}
-    			}
-    		}
-    	}
-    	return s;
-    }
+	public Train getTrain() {
+		return train;
+	}
 
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+	public List<Seat> getSeats() {
+		List<Seat> s = new ArrayList<Seat>();
+		for (Cart c : train.carts) {
+			for (Seat se : c.seats) {
+				s.add(se);
+			}
+		}
+		return s;
+	}
+
+	public List<Player> getPlayers() {
+		List<Player> s = new ArrayList<Player>();
+		for (Cart c : train.carts) {
+			for (Seat se : c.seats) {
+				for (Entity e : se.holder.getPassengers()) {
+					if (e instanceof Player) {
+						s.add((Player) e);
+					}
+				}
+			}
+		}
+		return s;
+	}
+
+	@Override
+	public HandlerList getHandlers() {
+		return handlers;
+	}
+
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
 
 }

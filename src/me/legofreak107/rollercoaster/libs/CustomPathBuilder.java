@@ -1,7 +1,6 @@
 package me.legofreak107.rollercoaster.libs;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.Location;
 

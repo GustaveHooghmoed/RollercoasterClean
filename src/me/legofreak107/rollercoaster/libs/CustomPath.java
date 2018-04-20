@@ -1,9 +1,7 @@
 package me.legofreak107.rollercoaster.libs;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.bukkit.Location;
 
@@ -14,7 +12,7 @@ public class CustomPath {
 	private List<Location> preLocation = new ArrayList<Location>();
 	int levelOfDetail = 60;
 	public CustomPath path = null;
-	
+
 	public CustomPath(Location vector, List<Location> vectorList) {
 		setOrigin(vector);
 		setPreLocation(vectorList);
@@ -22,15 +20,15 @@ public class CustomPath {
 	}
 
 	private static Location origin;
-	
+
 	public static Location getOrigin() {
 		return origin.clone();
 	}
 
 	public void setOrigin(Location origin) {
-		this.origin = origin.clone();
+		CustomPath.origin = origin.clone();
 	}
-	
+
 	public int getPathLenght() {
 		return getPreLocation().size() * levelOfDetail;
 	}
@@ -53,8 +51,8 @@ public class CustomPath {
 
 	private static Location Interp(Location[] pts, double t) {
 		int numSections = pts.length - 3;
-		int currPt = (int) Math.min(Math.floor(t * (double) numSections), numSections - 1);
-		double u = t * (double) numSections - (double) currPt;
+		int currPt = (int) Math.min(Math.floor(t * numSections), numSections - 1);
+		double u = t * numSections - currPt;
 
 		Location a = pts[currPt];
 		Location b = pts[currPt + 1];

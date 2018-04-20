@@ -14,5 +14,5 @@ public class Seat {
 	public Boolean locked = false;
 	public Train train;
 	public Cart cart;
-	
+
 }

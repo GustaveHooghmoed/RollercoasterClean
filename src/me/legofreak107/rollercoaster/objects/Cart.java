@@ -2,7 +2,6 @@ package me.legofreak107.rollercoaster.objects;
 
 import java.util.ArrayList;
 
-
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.inventory.ItemStack;
 
@@ -25,5 +24,5 @@ public class Cart {
 	public Boolean onTopOfSign = false;
 	public Boolean autoRotation = true;
 	public Boolean autoTilt = true;
-	
+
 }

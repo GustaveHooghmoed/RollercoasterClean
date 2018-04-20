@@ -20,5 +20,5 @@ public class Train {
 	public String trainName;
 	public Boolean hasLoco;
 	public Boolean autoSpeed;
-	
+
 }

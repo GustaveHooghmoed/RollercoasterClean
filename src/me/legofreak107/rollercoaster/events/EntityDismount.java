@@ -11,27 +11,27 @@ import me.legofreak107.rollercoaster.Main;
 import me.legofreak107.rollercoaster.api.TrainLeaveEvent;
 import me.legofreak107.rollercoaster.objects.Seat;
 
-public class EntityDismount implements Listener{
-	
+public class EntityDismount implements Listener {
+
 	private Main plugin;
-	
-	public EntityDismount(Main pl){
+
+	public EntityDismount(Main pl) {
 		plugin = pl;
 	}
-	
+
 	@EventHandler
-	public void onExit2(EntityDismountEvent e){
-		if(e.getDismounted() instanceof ArmorStand){
-			if(plugin.seatInfo.containsKey(e.getDismounted())){
-				Seat s = plugin.seatInfo.get(e.getDismounted());
-				if(s.locked || s.train.locked){
+	public void onExit2(EntityDismountEvent e) {
+		if (e.getDismounted() instanceof ArmorStand) {
+			if (Main.getData().seatInfo.containsKey(e.getDismounted())) {
+				Seat s = Main.getData().seatInfo.get(e.getDismounted());
+				if (s.locked || s.train.locked) {
 					s.holder.addPassenger(e.getEntity());
-				}else{
-					TrainLeaveEvent event = new TrainLeaveEvent("TrainLeaveEvent", s.train, (Player)e.getEntity(), s);
+				} else {
+					TrainLeaveEvent event = new TrainLeaveEvent("TrainLeaveEvent", s.train, (Player) e.getEntity(), s);
 					Bukkit.getServer().getPluginManager().callEvent(event);
 				}
 			}
 		}
 	}
-	
+
 }

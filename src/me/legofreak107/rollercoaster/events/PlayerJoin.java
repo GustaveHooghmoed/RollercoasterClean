@@ -5,39 +5,43 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import me.legofreak107.rollercoaster.Main;
+import me.legofreak107.rollercoaster.helpers.DataHolder;
 import me.legofreak107.rollercoaster.objects.Train;
 
-public class PlayerJoin implements Listener{
+public class PlayerJoin implements Listener {
 
 	private Main plugin;
-	
-	public PlayerJoin(Main pl){
+
+	public PlayerJoin(Main pl) {
 		plugin = pl;
 	}
-	
+
 	@EventHandler
-	public void onJoin(PlayerJoinEvent e){
-		if(!plugin.trainsSpawned){
-			if(plugin.sal.getCustomSaveConfig().contains("Saved")){
-				for(String s : plugin.sal.getCustomSaveConfig().getConfigurationSection("Saved").getKeys(false)){
-			        Integer loopSeconds = plugin.sal.getCustomSaveConfig().getInt("Saved." + s + ".loopSeconds");
-			        Integer cartOffset = plugin.sal.getCustomSaveConfig().getInt("Saved." + s + ".cartOffset");
-			        Integer minSpeed = plugin.sal.getCustomSaveConfig().getInt("Saved." + s + ".minSpeed");
-			        Integer maxSpeed = plugin.sal.getCustomSaveConfig().getInt("Saved." + s + ".maxSpeed");
-			        Integer trainLength = plugin.sal.getCustomSaveConfig().getInt("Saved." + s + ".trainLength");
-			        Boolean hasLoco = plugin.sal.getCustomSaveConfig().getBoolean("Saved." + s + ".hasLoco");
-			        Boolean isSmall = plugin.sal.getCustomSaveConfig().getBoolean("Saved." + s + ".isSmall");
-			        String trainName = plugin.sal.getCustomSaveConfig().getString("Saved." + s + ".trainName");
-			        Integer cartDownPos = plugin.sal.getCustomSaveConfig().getInt("Saved." + s + ".cartDownPos");
-			        Train t = plugin.getAPI().spawnTrain(trainName, trainLength, hasLoco, plugin.getAPI().getTrack(s).origin, isSmall, plugin.getAPI().getTrack(s), minSpeed, maxSpeed, cartOffset, cartDownPos);
-			        plugin.loop.put(t, loopSeconds);
-			        plugin.getAPI().startTrain(s);
-			        plugin.sal.getCustomSaveConfig().set("Saved." + s, null);
+	public void onJoin(PlayerJoinEvent e) {
+		if (!Main.getData().trainsSpawned) {
+			if (Main.getSAL().getCustomSaveConfig().contains("Saved")) {
+				for (String s : Main.getSAL().getCustomSaveConfig().getConfigurationSection("Saved").getKeys(false)) {
+					Integer loopSeconds = Main.getSAL().getCustomSaveConfig().getInt("Saved." + s + ".loopSeconds");
+					Integer cartOffset = Main.getSAL().getCustomSaveConfig().getInt("Saved." + s + ".cartOffset");
+					Integer minSpeed = Main.getSAL().getCustomSaveConfig().getInt("Saved." + s + ".minSpeed");
+					Integer maxSpeed = Main.getSAL().getCustomSaveConfig().getInt("Saved." + s + ".maxSpeed");
+					Integer trainLength = Main.getSAL().getCustomSaveConfig().getInt("Saved." + s + ".trainLength");
+					Boolean hasLoco = Main.getSAL().getCustomSaveConfig().getBoolean("Saved." + s + ".hasLoco");
+					Boolean isSmall = Main.getSAL().getCustomSaveConfig().getBoolean("Saved." + s + ".isSmall");
+					String trainName = Main.getSAL().getCustomSaveConfig().getString("Saved." + s + ".trainName");
+					Integer cartDownPos = Main.getSAL().getCustomSaveConfig().getInt("Saved." + s + ".cartDownPos");
+					Train t = Main.getAPI().spawnTrain(trainName, trainLength, hasLoco,
+							Main.getAPI().getTrack(s).origin, isSmall, Main.getAPI().getTrack(s), minSpeed, maxSpeed,
+							cartOffset, cartDownPos);
+					Main.getData();
+					DataHolder.loop.put(t, loopSeconds);
+					Main.getAPI().startTrain(s);
+					Main.getSAL().getCustomSaveConfig().set("Saved." + s, null);
 				}
-				plugin.sal.getCustomSaveConfig().set("Saved", null);
-				plugin.trainsSpawned = true;
+				Main.getSAL().getCustomSaveConfig().set("Saved", null);
+				Main.getData().trainsSpawned = true;
 			}
 		}
 	}
-	
+
 }

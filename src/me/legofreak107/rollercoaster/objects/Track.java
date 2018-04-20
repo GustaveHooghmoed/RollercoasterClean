@@ -10,5 +10,5 @@ public class Track {
 	public ArrayList<PathPoint> locs;
 	public ArrayList<Location> locstosave;
 	public Location origin;
-	
+
 }
